@@ -1,5 +1,5 @@
 import scrapy
-from ..items import OzodlikorgItem
+from ozodlikorg.items import OzodlikorgItem
 
 class OzodlikSpider(scrapy.Spider):
     name = 'ozodlik_1'
@@ -16,9 +16,9 @@ class OzodlikSpider(scrapy.Spider):
         all_div = response.css('.fui-grid__inner')
 
         for media in all_div:
-            title = media.css('.media-block__title--size-3::text').extract()
-            content = media.css('.perex--mb::text').extract()
-            author = media.css('.links__item-link::text').extract()
+            title = media.css('.media-block__title--size-3::text').get()
+            content = media.css('.perex--mb::text').get()
+            author = media.css('.links__item-link::text').get()
 
             items['title'] = title
             items['content'] = content
@@ -26,7 +26,7 @@ class OzodlikSpider(scrapy.Spider):
 
             yield items
 
-        next_page = response.css('li.pagination__item--next a::attr(href)').get()
-        print(next_page)
-        if next_page is not None:
-            yield response.follow(next_page, callback=self.parse)
+        # next_page = response.css('li.pagination__item--next a::attr(href)').get()
+        # print(next_page)
+        # if next_page is not None:
+        #     yield response.follow(next_page, callback=self.parse)

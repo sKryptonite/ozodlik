@@ -3,10 +3,11 @@ from ..items import OzodlikorgItem
 
 class OzodlikSpider(scrapy.Spider):
     name = 'ozodlik_1'
-    name2 = input("Search for: ")
-    start_urls = [
-        'https://www.rferl.org/s?k=%s' % name2
-    ]
+
+    def __init__(self, *args, **kwargs):
+        super(OzodlikSpider, self).__init__(*args, **kwargs)
+        self.name2 = kwargs.get('name2')
+        self.start_urls = ['https://www.rferl.org/s?k=%s' % self.name2]
 
     def parse(self, response):
 

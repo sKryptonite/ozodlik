@@ -3,7 +3,8 @@ from ..items import OzodlikorgItem
 
 class OzodlikSpider(scrapy.Spider):
     name = 'ozodlik'
-    name2 = input("Search for: ")
+    # name2 = input("Search for: ")
+    name2 = ''
     start_urls = [
         'https://www.rferl.org/s?k=%s' % name2,
         'https://www.polygraph.info/s?k=%s' % name2,

@@ -18,7 +18,7 @@ class OzodlikTestCase(unittest.TestCase):
         """Set up for test"""
         print("Set up for [" + str(self.shortDescription() )+ "]")
         self.spider = OzodlikSpider()
-        self.testfile = open('features_ozodlik_1.html')
+        self.testfile = open('features_ozodlik_1.html', errors='ignore') # changed for avoid errors
         self.testdata = self.testfile.read()
 
     def tearDown(self):

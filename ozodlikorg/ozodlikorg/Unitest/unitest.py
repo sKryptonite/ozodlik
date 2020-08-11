@@ -18,7 +18,7 @@ class OzodlikTestCase(unittest.TestCase):
         """Set up for test"""
         print("Set up for [" + str(self.shortDescription() )+ "]")
         self.spider = OzodlikSpider()
-        self.testfile = open('features_ozodlik_1.html', errors='ignore') # changed for avoid errors
+        self.testfile = open('features_ozodlik_1.html', errors='ignore')
         self.testdata = self.testfile.read()
 
     def tearDown(self):
@@ -78,8 +78,15 @@ class OzodlikTestCase(unittest.TestCase):
     def test_requests_parse(self):
         """Parse requests test"""
         print("id: " + self.id())
-        results = self.spider.parse(self.online_response(url='https://www.rferl.org/s?k=USA&tab=all&pi=1&r=any&pp=20'))
+        results = self.spider.parse(self.online_response(url='https://www.rferl.org/s?k=USA&tab=all&pi=1&r=any&pp=10'))
         self._test_item_results(results, 10)
+
+    def str_parse(self):
+        print('This is a monkey function')
+
+    def str_check(self):
+        self.spider.parse = self.str_parse
+        self.spider.parse()
 
 if __name__ == '__main__':
     unittest.main()

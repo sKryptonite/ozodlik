@@ -3,22 +3,24 @@ import os
 import sys
 import unittest
 import requests
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), '../..'))
-sys.path.insert(0, BASE_DIR+'/spiders')
+sys.path.insert(0, BASE_DIR + '/spiders')
 
 from ozodlik_spider1 import OzodlikSpider
 from scrapy.crawler import CrawlerProcess
 from scrapy.http import Request, TextResponse, Response, HtmlResponse
 
 
+
 class OzodlikTestCase(unittest.TestCase):
 
     def setUp(self):
         """Set up for test"""
-        print("Set up for [" + str(self.shortDescription() )+ "]")
+        print("Set up for [" + str(self.shortDescription()) + "]")
         self.spider = OzodlikSpider()
-        self.testfile = open('features_ozodlik_1.html', errors='ignore') # changed for avoid errors
+        self.testfile = open('features_ozodlik_1.html', errors='ignore')
         self.testdata = self.testfile.read()
 
     def tearDown(self):
@@ -78,8 +80,19 @@ class OzodlikTestCase(unittest.TestCase):
     def test_requests_parse(self):
         """Parse requests test"""
         print("id: " + self.id())
-        results = self.spider.parse(self.online_response(url='https://www.rferl.org/s?k=USA&tab=all&pi=1&r=any&pp=20'))
+        results = self.spider.parse(self.online_response(url='https://www.rferl.org/s?k=USA&tab=all&pi=1&r=any&pp=10'))
         self._test_item_results(results, 10)
+
+    def str_par(self):
+        return 'This is a monkey function'
+
+    def test_monkey(self):
+        """Monkey patching"""
+        print("id: " + self.id())
+        self.spider.parse = self.str_par
+        results = self.spider.parse()
+        self.assertEqual(results, 'This is a monkey functio')
+
 
 if __name__ == '__main__':
     unittest.main()

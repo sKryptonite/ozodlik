@@ -22,8 +22,6 @@ class OzodlikTestCase(unittest.TestCase):
         self.spider = OzodlikSpider()
         self.testfile = open('features_ozodlik_1.html', errors='ignore')
         self.testdata = self.testfile.read()
-        #self.spider.parse = self.str_par
-        #self.spider.parse()
 
     def tearDown(self):
         """Tear down for test"""
@@ -85,6 +83,15 @@ class OzodlikTestCase(unittest.TestCase):
         results = self.spider.parse(self.online_response(url='https://www.rferl.org/s?k=USA&tab=all&pi=1&r=any&pp=10'))
         self._test_item_results(results, 10)
 
+    def str_par(self):
+        return 'This is a monkey function'
+
+    def test_monkey(self):
+        """Monkey patching"""
+        print("id: " + self.id())
+        self.spider.parse = self.str_par
+        results = self.spider.parse()
+        self.assertEqual(results, 'This is a monkey functio')
 
 
 if __name__ == '__main__':

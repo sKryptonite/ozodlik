@@ -91,7 +91,7 @@ class OzodlikTestCase(unittest.TestCase):
         print("id: " + self.id())
         self.spider.parse = self.str_par
         results = self.spider.parse()
-        self.assertEqual(results, 'This is a monkey functi')
+        self.assertEqual(results, 'This is a monkey functio')
 
 
 if __name__ == '__main__':
